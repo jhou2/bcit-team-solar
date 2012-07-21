@@ -15,13 +15,17 @@ package
 		[Embed(source = 'assets/walkcycle/boy_all.png')] 
 		private const PLAYER:Class;
 		
-		public var sprPlayer:Spritemap = new Spritemap(PLAYER, 50, 100);
-		public var prevx:Number = 0;
-		public var prevy:Number = 0;
-		public var face:Number = 0;   // 0 = facing right, 1 = facing left.
+		private var sprPlayer:Spritemap = new Spritemap(PLAYER, 50, 100);
+		private var prevx:Number = 0;
+		private var prevy:Number = 0;
+		private var face:Number = 0;   // 0 = facing right, 1 = facing left.
 		
-		public var destx:Number = 0;
-		public var desty:Number = 0;
+		private var destx:Number = 0;
+		private var desty:Number = 0;
+		
+		private var numLotion:Number = 0;
+		
+		private var counter:printLotion = new printLotion;
 		
 	
 		
@@ -33,9 +37,9 @@ package
 			
 			
 			sprPlayer.add("right", [0, 1, 2, 3, 4, 5, 6, 7], 8, true);
-			sprPlayer.add("stand-right", [1], 0, false);
+			sprPlayer.add("stand-right", [16], 0, false);
 			sprPlayer.add("left", [8, 9, 10, 11, 12, 13, 14, 15], 8, true);
-			sprPlayer.add("stand-left", [8], 0, false);
+			sprPlayer.add("stand-left", [16], 0, false);
 		
 			x = 10;
 			y = 300;
@@ -51,9 +55,14 @@ package
 		{
 			var b:lotion = collide("lotion", x, y) as lotion;
 			
+			
 			if (b)
 			{
+				
 				b.movefar();
+				MyWorld.c.setValue(MyWorld.c.getValue() - 10);
+				numLotion++;
+				counter.print(numLotion);
 				
 			}
 			

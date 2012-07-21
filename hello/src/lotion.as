@@ -28,6 +28,7 @@ package
 		{
 			x = Math.random() * 750;
 			y = Math.random() * 300 + 200;
+			
 		}
 	}
 	
