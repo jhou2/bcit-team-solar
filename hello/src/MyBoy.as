@@ -5,6 +5,7 @@ package
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
+	import net.flashpunk.Sfx;
 	
 	/**
 	 * ...
@@ -14,6 +15,11 @@ package
 	{
 		[Embed(source = 'assets/walkcycle/boy_all.png')] 
 		private const PLAYER:Class;
+		
+		[Embed(source = 'assets/mysolar.mp3')]
+		private const MUSIC:Class;
+		
+		public var solar:Sfx = new Sfx(MUSIC);
 		
 		private var sprPlayer:Spritemap = new Spritemap(PLAYER, 50, 100);
 		private var prevx:Number = 0;
@@ -27,6 +33,8 @@ package
 		
 		private var counter:printLotion = new printLotion;
 		
+		private var startx:Number = 10;
+		private var starty:Number = 300;
 	
 		
 		public function MyBoy()
@@ -40,9 +48,10 @@ package
 			sprPlayer.add("stand-right", [16], 0, false);
 			sprPlayer.add("left", [8, 9, 10, 11, 12, 13, 14, 15], 8, true);
 			sprPlayer.add("stand-left", [16], 0, false);
+			sprPlayer.add("burn", [16, 17, 18, 19, 20, 21, 22, 23], 8, false);
 		
-			x = 10;
-			y = 300;
+			x = startx;
+			y = starty;
 			prevx = x;
 			prevy = y;
 			destx = x;
@@ -50,11 +59,26 @@ package
 			
 			graphic = sprPlayer;
 			sprPlayer.play("stand-right", true);
+			solar.play();
 		}
 		override public function update():void
 		{
 			var b:lotion = collide("lotion", x, y) as lotion;
 			
+			if (MyWorld.c.getValue() >= 99) {
+				sprPlayer.play("burn", true);
+				
+				x = startx;
+				y = starty;
+				prevx = x;
+				prevy = y;
+				destx = x;
+				desty = y;
+				MyWorld.c.setValue(0);
+				numLotion = 0;
+				counter.print(numLotion);
+				sprPlayer.play("stand-right");
+			}
 			
 			if (b)
 			{
@@ -154,6 +178,16 @@ package
 					y += 5;
 					desty = y;
 				}
+			}
+			
+			if (Input.check(Key.R))
+			{
+				if (solar.playing) {
+					solar.stop();
+				} else {
+					solar.play();
+				}
+				
 			}
 			
 		}

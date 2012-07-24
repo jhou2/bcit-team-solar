@@ -16,7 +16,7 @@ package
 			
 			
 			add(new line);
-			add(new tree1);
+			
 			add(new tree2);	
 		
 			add(c);
@@ -27,6 +27,7 @@ package
 			add(new endSign);
 			add(new lotion);
 			add(new MyBoy);
+			add(new tree1);
 			
 			
 		}

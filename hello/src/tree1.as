@@ -13,7 +13,7 @@ package
 		public function tree1()
 		{
 			x = 300;
-			y = 400;
+			y = 425;
 			graphic = new Image(PLAYER);
 		}
 	}
